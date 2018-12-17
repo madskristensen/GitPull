@@ -21,7 +21,7 @@ This can be enabled in the **Tools -> Options** dialog as illustrated below.
 > When this setting is set to `false`, the extension is not being loaded at all. Only when the command is manually invoked will the extension load.
 
 ## Visual confirmation
-The Output Window will show the information about the `git pull` command and the status bar will indicate that the command was invoked.
+The Output Window will show the information about the `git pull` command.
 
 ![Statusbar](art/statusbar.png)
 
