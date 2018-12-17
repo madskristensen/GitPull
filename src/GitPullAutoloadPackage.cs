@@ -4,7 +4,6 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
-using EnvDTE;
 using Microsoft;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -37,7 +36,10 @@ namespace GitPull
             }
 
             // Listen for subsequent solution events
-            ShellEvents.SolutionEvents.OnAfterOpenSolution += (s, e) => HandleOpenSolutionAsync().ConfigureAwait(false);
+            ShellEvents.SolutionEvents.OnAfterBackgroundSolutionLoadComplete += (s, e) =>
+             {
+                 HandleOpenSolutionAsync().FileAndForget("madskristensen/gitpull");
+             };
         }
 
         private async Task<bool> IsSolutionLoadedAsync()
@@ -62,20 +64,10 @@ namespace GitPull
                     return;
                 }
 
-                await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
+                var commandService = await GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
+                await JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                var dte = await GetServiceAsync(typeof(DTE)) as DTE;
-                Assumes.Present(dte);
-
-                bool isUnderSourceControl = dte.SourceControl.IsItemUnderSCC(dte.Solution.FileName);
-
-                if (isUnderSourceControl)
-                {
-                    var commandService = await GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
-                    var statusBar = await GetServiceAsync(typeof(SVsStatusbar)) as IVsStatusbar;
-
-                    PullCommand.Execute(commandService, statusBar);
-                }
+                PullCommand.Execute(commandService);
             }
             catch (Exception ex)
             {

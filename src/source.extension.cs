@@ -11,7 +11,7 @@ namespace GitPull
         public const string Name = "Git Pull";
         public const string Description = @"Trigger a 'git pull' from the solution currectly loaded in Visual Studio without going through the Team Explorer window.";
         public const string Language = "en-US";
-        public const string Version = "1.0";
+        public const string Version = "1.0.100";
         public const string Author = "Mads Kristensen";
         public const string Tags = "git";
     }
