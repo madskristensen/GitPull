@@ -1,0 +1,44 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CommandTable xmlns="http://schemas.microsoft.com/VisualStudio/2005-10-18/CommandTable" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+
+  <Extern href="stdidcmd.h"/>
+  <Extern href="vsshlids.h"/>
+  <Include href="KnownImageIds.vsct"/>
+
+  <Commands package="guidGitPullPackage">
+    <Groups>
+      <Group guid="guidGitPullPackageCmdSet" id="MyMenuGroup" priority="0x0100">
+        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
+      </Group>
+    </Groups>
+
+    <Buttons>
+      <Button guid="guidGitPullPackageCmdSet" id="PullCommandId" priority="0x0100" type="Button">
+        <Parent guid="guidGitPullPackageCmdSet" id="MyMenuGroup" />
+        <Icon guid="ImageCatalogGuid" id="Git"/>
+        <CommandFlag>IconIsMoniker</CommandFlag>
+        <CommandFlag>DynamicVisibility</CommandFlag>
+        <Strings>
+          <ButtonText>Git Pull</ButtonText>
+        </Strings>
+      </Button>
+    </Buttons>
+  </Commands>
+
+  <VisibilityConstraints>
+    <VisibilityItem guid="guidGitPullPackageCmdSet" id="PullCommandId" context="UICONTEXT_SolutionExistsAndNotBuildingAndNotDebugging" />
+  </VisibilityConstraints>
+
+  <KeyBindings>
+    <KeyBinding guid="guidGitPullPackageCmdSet" id="PullCommandId" editor="guidVSStd97" key1="K" mod1="Control" key2="Z" mod2="Control" />
+  </KeyBindings>
+
+  <Symbols>
+    <GuidSymbol name="guidGitPullPackage" value="{77600ef8-42ac-4bc0-855f-5eecfcd5e5ed}" />
+
+    <GuidSymbol name="guidGitPullPackageCmdSet" value="{de0a4512-f94d-427a-9db1-3957c9ab304e}">
+      <IDSymbol name="MyMenuGroup" value="0x1020" />
+      <IDSymbol name="PullCommandId" value="0x0100" />
+    </GuidSymbol>
+  </Symbols>
+</CommandTable>
