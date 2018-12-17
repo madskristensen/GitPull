@@ -55,6 +55,13 @@ namespace GitPull
         {
             try
             {
+                GeneralOptions options = await GeneralOptions.GetLiveInstanceAsync();
+
+                if (!options.PullOnSolutionOpen)
+                {
+                    return;
+                }
+
                 await JoinableTaskFactory.SwitchToMainThreadAsync(DisposalToken);
 
                 var dte = await GetServiceAsync(typeof(DTE)) as DTE;
