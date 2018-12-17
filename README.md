@@ -2,7 +2,7 @@
 
 [![Build status](https://ci.appveyor.com/api/projects/status/gqt5p9jo2qc3jxvi?svg=true)](https://ci.appveyor.com/project/madskristensen/gitpull)
 
-Download the extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.VsctIntellisense) or get the latest [CI build](http://vsixgallery.com/extension/c71355fb-bd6f-4235-a3b0-0ebaa2bad36f/)
+Download the extension from the [Visual Studio Marketplace](https://marketplace.visualstudio.com/items?itemName=MadsKristensen.GitPull) or get the latest [CI build](http://vsixgallery.com/extension/c71355fb-bd6f-4235-a3b0-0ebaa2bad36f/)
 
 --------------------------------------
 
