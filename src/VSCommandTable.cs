@@ -15,6 +15,9 @@ namespace GitPull
         public const string guidGitPullPackageString = "77600ef8-42ac-4bc0-855f-5eecfcd5e5ed";
         public static Guid guidGitPullPackage = new Guid(guidGitPullPackageString);
 
+        public const string guidGitPullAutoloadString = "d23519c8-89dd-46ca-a81b-9297a467d0b0";
+        public static Guid guidGitPullAutoload = new Guid(guidGitPullAutoloadString);
+
         public const string guidGitPullPackageCmdSetString = "de0a4512-f94d-427a-9db1-3957c9ab304e";
         public static Guid guidGitPullPackageCmdSet = new Guid(guidGitPullPackageCmdSetString);
     }

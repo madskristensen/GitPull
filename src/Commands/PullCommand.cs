@@ -26,7 +26,7 @@ namespace GitPull
             commandService.AddCommand(cmd);
         }
 
-        private static void Execute(OleMenuCommandService commandService, IVsStatusbar statusbar)
+        public static void Execute(OleMenuCommandService commandService, IVsStatusbar statusbar)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 

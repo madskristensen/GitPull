@@ -35,6 +35,7 @@
 
   <Symbols>
     <GuidSymbol name="guidGitPullPackage" value="{77600ef8-42ac-4bc0-855f-5eecfcd5e5ed}" />
+    <GuidSymbol name="guidGitPullAutoload" value="{d23519c8-89dd-46ca-a81b-9297a467d0b0}" />
 
     <GuidSymbol name="guidGitPullPackageCmdSet" value="{de0a4512-f94d-427a-9db1-3957c9ab304e}">
       <IDSymbol name="MyMenuGroup" value="0x1020" />
