@@ -7,13 +7,13 @@ namespace GitPull
     /// </summary>
     internal class BaseOptionPage<T> : DialogPage where T : BaseOptionModel<T>, new()
     {
-        private BaseOptionModel<T> _model;
+        private readonly BaseOptionModel<T> _model;
 
         public BaseOptionPage()
         {
-#pragma warning disable VSTHRD104 // Offer async methods
+#pragma warning disable VSTHRD102 // Implement internal logic asynchronously
             _model = ThreadHelper.JoinableTaskFactory.Run(BaseOptionModel<T>.CreateAsync);
-#pragma warning restore VSTHRD104 // Offer async methods
+#pragma warning restore VSTHRD102 // Implement internal logic asynchronously
         }
 
         public override object AutomationObject => _model;

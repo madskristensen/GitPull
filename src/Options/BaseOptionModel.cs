@@ -20,8 +20,8 @@ namespace GitPull
     /// </summary>
     internal abstract class BaseOptionModel<T> where T : BaseOptionModel<T>, new()
     {
-        private static AsyncLazy<T> _liveModel = new AsyncLazy<T>(CreateAsync, ThreadHelper.JoinableTaskFactory);
-        private static AsyncLazy<ShellSettingsManager> _settingsManager = new AsyncLazy<ShellSettingsManager>(GetSettingsManagerAsync, ThreadHelper.JoinableTaskFactory);
+        private static readonly AsyncLazy<T> _liveModel = new AsyncLazy<T>(CreateAsync, ThreadHelper.JoinableTaskFactory);
+        private static readonly AsyncLazy<ShellSettingsManager> _settingsManager = new AsyncLazy<ShellSettingsManager>(GetSettingsManagerAsync, ThreadHelper.JoinableTaskFactory);
 
         protected BaseOptionModel()
         { }
@@ -35,9 +35,9 @@ namespace GitPull
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
 
-#pragma warning disable VSTHRD104 // Offer async methods
+#pragma warning disable VSTHRD102 // Implement internal logic asynchronously
                 return ThreadHelper.JoinableTaskFactory.Run(GetLiveInstanceAsync);
-#pragma warning restore VSTHRD104 // Offer async methods
+#pragma warning restore VSTHRD102 // Implement internal logic asynchronously
             }
         }
 
@@ -67,7 +67,9 @@ namespace GitPull
         /// </summary>
         public virtual void Load()
         {
+#pragma warning disable VSTHRD102 // Implement internal logic asynchronously
             ThreadHelper.JoinableTaskFactory.Run(LoadAsync);
+#pragma warning restore VSTHRD102 // Implement internal logic asynchronously
         }
 
         /// <summary>
@@ -103,7 +105,9 @@ namespace GitPull
         /// </summary>
         public virtual void Save()
         {
+#pragma warning disable VSTHRD102 // Implement internal logic asynchronously
             ThreadHelper.JoinableTaskFactory.Run(SaveAsync);
+#pragma warning restore VSTHRD102 // Implement internal logic asynchronously
         }
 
         /// <summary>
