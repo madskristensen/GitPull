@@ -6,6 +6,8 @@ Download the extension from the [Visual Studio Marketplace](https://marketplace.
 
 --------------------------------------
 
+Always stay-up-to date with the latest commits to your source code repositories and avoid push conflicts.
+
 ## Manual Git Pull
 This extension exposes the "git pull" command on the context menu of the solution node in Solution Explorer. The same command is also available using the keyboard short cut **`Ctrl+K, Ctrl+Z`**.
 

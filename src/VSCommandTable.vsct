@@ -6,15 +6,9 @@
   <Include href="KnownImageIds.vsct"/>
 
   <Commands package="guidGitPullPackage">
-    <Groups>
-      <Group guid="guidGitPullPackageCmdSet" id="MyMenuGroup" priority="0x0100">
-        <Parent guid="guidSHLMainMenu" id="IDM_VS_CTXT_SOLNNODE"/>
-      </Group>
-    </Groups>
-
     <Buttons>
       <Button guid="guidGitPullPackageCmdSet" id="PullCommandId" priority="0x0100" type="Button">
-        <Parent guid="guidGitPullPackageCmdSet" id="MyMenuGroup" />
+        <Parent guid="guidSHLMainMenu" id="IDG_VS_CTXT_SOLUTION_SCC" />
         <Icon guid="ImageCatalogGuid" id="Git"/>
         <CommandFlag>IconIsMoniker</CommandFlag>
         <CommandFlag>DynamicVisibility</CommandFlag>
@@ -38,7 +32,6 @@
     <GuidSymbol name="guidGitPullAutoload" value="{d23519c8-89dd-46ca-a81b-9297a467d0b0}" />
 
     <GuidSymbol name="guidGitPullPackageCmdSet" value="{de0a4512-f94d-427a-9db1-3957c9ab304e}">
-      <IDSymbol name="MyMenuGroup" value="0x1020" />
       <IDSymbol name="PullCommandId" value="0x0100" />
     </GuidSymbol>
   </Symbols>

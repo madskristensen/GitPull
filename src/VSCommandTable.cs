@@ -26,7 +26,6 @@ namespace GitPull
     /// </summary>
     internal sealed partial class PackageIds
     {
-        public const int MyMenuGroup = 0x1020;
         public const int PullCommandId = 0x0100;
     }
 }

@@ -50,7 +50,6 @@
     <Compile Include="Options\BaseOptionPage.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="Options\DialogPageProvider.cs" />
     <Compile Include="Options\GeneralOptions.cs" />
     <Compile Include="source.extension.cs">
       <AutoGen>True</AutoGen>

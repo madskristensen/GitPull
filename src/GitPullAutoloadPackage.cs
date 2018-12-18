@@ -15,8 +15,8 @@ namespace GitPull
 {
     [PackageRegistration(UseManagedResourcesOnly = true, AllowsBackgroundLoading = true)]
     [Guid("02222c3a-8662-44bc-aa3a-a4bbd12d8d70")]
-    [ProvideOptionPage(typeof(DialogPageProvider.General), "Source Control", Vsix.Name, 101, 102, true, new string[0], ProvidesLocalizedCategoryName = false)]
-    [ProvideProfile(typeof(DialogPageProvider.General), "Source Control", Vsix.Name, 101, 102, isToolsOptionPage: true)]
+    [ProvideOptionPage(typeof(Options.Page), "Source Control", Vsix.Name, 101, 102, true, new string[0], ProvidesLocalizedCategoryName = false)]
+    [ProvideProfile(typeof(Options.Page), "Source Control", Vsix.Name, 101, 102, isToolsOptionPage: true)]
     [ProvideAutoLoad(PackageGuids.guidGitPullAutoloadString, PackageAutoLoadFlags.BackgroundLoad)]
     [ProvideUIContextRule(PackageGuids.guidGitPullAutoloadString,
         name: "Auto load",
@@ -25,7 +25,6 @@ namespace GitPull
         termValues: new[] { @"UserSettingsStoreQuery:GitPull.GeneralOptions\PullOnSolutionOpen", VSConstants.UICONTEXT.SolutionExistsAndFullyLoaded_string })]
     public sealed class GitPullAutoloadPackage : AsyncPackage
     {
-
         protected override async Task InitializeAsync(CancellationToken cancellationToken, IProgress<ServiceProgressData> progress)
         {
             bool isSolutionLoaded = await IsSolutionLoadedAsync();
@@ -57,7 +56,7 @@ namespace GitPull
         {
             try
             {
-                GeneralOptions options = await GeneralOptions.GetLiveInstanceAsync();
+                Options options = await Options.GetLiveInstanceAsync();
 
                 if (!options.PullOnSolutionOpen)
                 {

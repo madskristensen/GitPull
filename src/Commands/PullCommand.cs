@@ -26,8 +26,6 @@ namespace GitPull
 
         public static void Execute(OleMenuCommandService commandService)
         {
-            //ThreadHelper.ThrowIfNotOnUIThread();
-
             var guid = new Guid("{57735D06-C920-4415-A2E0-7D6E6FBDFA99}");
             int id = 0x1033;
             var cmdId = new CommandID(guid, id);
@@ -36,9 +34,9 @@ namespace GitPull
             {
                 _ = commandService.GlobalInvoke(cmdId);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                
+                System.Diagnostics.Debug.Write(ex);
             }
         }
     }
