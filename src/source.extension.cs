@@ -9,7 +9,7 @@ namespace GitPull
     {
         public const string Id = "c71355fb-bd6f-4235-a3b0-0ebaa2bad36f";
         public const string Name = "Git Pull";
-        public const string Description = @"Trigger a 'git pull' from the solution currectly loaded in Visual Studio without going through the Team Explorer window.";
+        public const string Description = @"Trigger a 'git pull' with a keyboard shortcut or automatically on solution load without having to go through multiple steps in the Team Explorer window.";
         public const string Language = "en-US";
         public const string Version = "1.0.100";
         public const string Author = "Mads Kristensen";

@@ -3,7 +3,8 @@
     <Metadata>
         <Identity Id="c71355fb-bd6f-4235-a3b0-0ebaa2bad36f" Version="1.0.100" Language="en-US" Publisher="Mads Kristensen" />
         <DisplayName>Git Pull</DisplayName>
-        <Description xml:space="preserve">Trigger a 'git pull' from the solution currectly loaded in Visual Studio without going through the Team Explorer window.</Description>
+        <Description xml:space="preserve">Trigger a 'git pull' with a keyboard shortcut or automatically on solution load without having to go through multiple steps in the Team Explorer window.</Description>
+        <MoreInfo>https://github.com/madskristensen/GitPull</MoreInfo>
         <Icon>Resources\Icon.png</Icon>
         <PreviewImage>Resources\Icon.png</PreviewImage>
         <Tags>git</Tags>
