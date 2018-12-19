@@ -82,6 +82,9 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
+    <PackageReference Include="EnvDTE">
+      <Version>8.0.2</Version>
+    </PackageReference>
     <PackageReference Include="Madskristensen.VSSDK.Resourcer">
       <Version>1.0.10</Version>
     </PackageReference>
@@ -108,6 +111,10 @@
   </ItemGroup>
   <ItemGroup />
   <ItemGroup>
+    <Content Include="hub.exe">
+      <IncludeInVSIX>true</IncludeInVSIX>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Resources\Icon.png">
       <IncludeInVSIX>true</IncludeInVSIX>
     </Content>
