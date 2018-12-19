@@ -58,7 +58,7 @@ namespace GitPull
                 var progress = new Progress<string>(line =>
                 {
                     ThreadHelper.ThrowIfNotOnUIThread();
-                    pane.Value.OutputStringThreadSafe(line + Environment.NewLine);
+                    pane.Value.OutputString(line + Environment.NewLine);
                 });
 
                 SyncRepositoryAsync(solutionDir, progress).FileAndForget("madskristensen/gitpull");
