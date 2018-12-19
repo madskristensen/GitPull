@@ -47,7 +47,14 @@ namespace GitPull
                     return;
                 }
 
-                var pane = new Lazy<IVsOutputWindowPane>(() => package.GetOutputPane(Guid.NewGuid(), "Git Pull"));
+                var pane = new Lazy<IVsOutputWindowPane>(() =>
+                {
+                    ThreadHelper.ThrowIfNotOnUIThread();
+                    var window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
+                    window.Activate();
+                    return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
+                });
+
                 var progress = new Progress<string>(line =>
                 {
                     ThreadHelper.ThrowIfNotOnUIThread();
