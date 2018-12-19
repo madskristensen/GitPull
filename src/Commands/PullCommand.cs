@@ -55,24 +55,31 @@ namespace GitPull
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
 
-                var outputText = false;
-                var progress = new Progress<string>(line =>
-                {
-                    ThreadHelper.ThrowIfNotOnUIThread();
-                    pane.Value.OutputString(line + Environment.NewLine);
-                    outputText = true;
-                });
-
-                SyncRepositoryAsync(solutionDir, progress).FileAndForget("madskristensen/gitpull");
-
-                if (!outputText)
-                {
-                    dte.StatusBar.Text = "No branches require syncing";
-                }
+                ExecuteAsync(dte, solutionDir, pane).FileAndForget("madskristensen/gitpull");
             }
             catch (Exception ex)
             {
                 Debug.Write(ex);
+            }
+        }
+
+        static async Task ExecuteAsync(DTE dte, string solutionDir, Lazy<IVsOutputWindowPane> pane)
+        {
+            await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var outputText = false;
+            var progress = new Progress<string>(line =>
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                pane.Value.OutputString(line + Environment.NewLine);
+                outputText = true;
+            });
+
+            await SyncRepositoryAsync(solutionDir, progress);
+
+            if (!outputText)
+            {
+                dte.StatusBar.Text = "No branches require syncing";
             }
         }
 
