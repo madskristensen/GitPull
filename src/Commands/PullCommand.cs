@@ -55,13 +55,20 @@ namespace GitPull
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
 
+                var outputText = false;
                 var progress = new Progress<string>(line =>
                 {
                     ThreadHelper.ThrowIfNotOnUIThread();
                     pane.Value.OutputString(line + Environment.NewLine);
+                    outputText = true;
                 });
 
                 SyncRepositoryAsync(solutionDir, progress).FileAndForget("madskristensen/gitpull");
+
+                if (!outputText)
+                {
+                    dte.StatusBar.Text = "No branches require syncing";
+                }
             }
             catch (Exception ex)
             {
