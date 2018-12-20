@@ -8,6 +8,13 @@ Download the extension from the [Visual Studio Marketplace](https://marketplace.
 
 Always stay-up-to date with the latest commits to your source code repositories and avoid push conflicts.
 
+This implementation embeds [hub](https://github.com/github/hub) and executes the `sync` command, see:
+https://hub.github.com/hub-sync.1.html
+
+- If the local branch is outdated, fast-forward it;
+- If the local branch contains unpushed work, warn about it;
+- If the branch seems merged and its upstream branch was deleted, delete it.
+
 ## Manual Git Pull
 This extension exposes the "git pull" command on the context menu of the solution node in Solution Explorer. The same command is also available using the keyboard short cut **`Ctrl+K, Ctrl+Z`**.
 
