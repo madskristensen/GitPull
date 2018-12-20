@@ -1,14 +1,14 @@
 ﻿using System;
+using System.ComponentModel.Design;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
-using System.Diagnostics;
-using System.ComponentModel.Design;
 using EnvDTE;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Task = System.Threading.Tasks.Task;
 using Process = System.Diagnostics.Process;
+using Task = System.Threading.Tasks.Task;
 
 namespace GitPull
 {
@@ -41,7 +41,7 @@ namespace GitPull
                 var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
                 Assumes.Present(dte);
 
-                var solutionDir = FindSolutionDirectory(dte);
+                string solutionDir = FindSolutionDirectory(dte);
                 if (solutionDir == null)
                 {
                     return;
@@ -50,7 +50,7 @@ namespace GitPull
                 var pane = new Lazy<IVsOutputWindowPane>(() =>
                 {
                     ThreadHelper.ThrowIfNotOnUIThread();
-                    var window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
+                    Window window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
                     window.Activate();
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
@@ -67,7 +67,7 @@ namespace GitPull
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            var outputText = false;
+            bool outputText = false;
             var progress = new Progress<string>(line =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
@@ -85,8 +85,8 @@ namespace GitPull
 
         static async Task SyncRepositoryAsync(string solutionDir, Progress<string> progress)
         {
-            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var exeFile = Path.Combine(dir, "hub.exe");
+            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            string exeFile = Path.Combine(dir, "hub.exe");
             var startInfo = new ProcessStartInfo
             {
                 FileName = exeFile,
@@ -99,6 +99,7 @@ namespace GitPull
             };
 
             var process = Process.Start(startInfo);
+
             await Task.WhenAll(
                 ReadAllAsync(process.StandardOutput, progress),
                 ReadAllAsync(process.StandardError, progress));
@@ -108,7 +109,7 @@ namespace GitPull
         {
             while (true)
             {
-                var line = await reader.ReadLineAsync();
+                string line = await reader.ReadLineAsync();
                 if (line == null)
                 {
                     break;
@@ -122,7 +123,7 @@ namespace GitPull
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            var path = dte.Solution.FileName;
+            string path = dte.Solution.FileName;
             if (Directory.Exists(path))
             {
                 return path;
