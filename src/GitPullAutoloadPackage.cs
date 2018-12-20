@@ -1,5 +1,4 @@
 ﻿using System;
-using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
@@ -63,10 +62,9 @@ namespace GitPull
                     return;
                 }
 
-                var commandService = await GetServiceAsync((typeof(IMenuCommandService))) as OleMenuCommandService;
                 await JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                PullCommand.Execute(commandService);
+                PullCommand.Execute(this);
             }
             catch (Exception ex)
             {
