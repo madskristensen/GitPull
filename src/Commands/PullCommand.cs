@@ -110,7 +110,7 @@ namespace GitPull
             while (true)
             {
                 string line = await reader.ReadLineAsync();
-                if (line == null)
+                if (line == null || line == "fatal: Not a git repository")
                 {
                     break;
                 }
