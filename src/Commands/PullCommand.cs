@@ -39,10 +39,13 @@ namespace GitPull
                 Assumes.Present(serviceProvider);
                 var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
                 Assumes.Present(dte);
+                var hubService = new HubService();
+                var teamExplorerService = new TeamExplorerService(serviceProvider);
 
-                string solutionDir = FindSolutionDirectory(dte);
-                if (solutionDir == null)
+                var repositoryPath = teamExplorerService.FindActiveRepositoryPath();
+                if (repositoryPath == null)
                 {
+                    dte.StatusBar.Text = "Not a git repository";
                     return;
                 }
 
@@ -54,9 +57,7 @@ namespace GitPull
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
 
-                var hubService = new HubService();
-                var gitPullService = new TeamExplorerService(package);
-                ExecuteAsync(dte, solutionDir, pane, hubService, gitPullService).FileAndForget("madskristensen/gitpull");
+                ExecuteAsync(dte, repositoryPath, pane, hubService, teamExplorerService).FileAndForget("madskristensen/gitpull");
             }
             catch (Exception ex)
             {
@@ -87,24 +88,6 @@ namespace GitPull
             {
                 await teamExplorerService.PullAsync();
             }
-        }
-
-        static string FindSolutionDirectory(DTE dte)
-        {
-            ThreadHelper.ThrowIfNotOnUIThread();
-
-            string path = dte.Solution.FileName;
-            if (Directory.Exists(path))
-            {
-                return path;
-            }
-
-            if (File.Exists(path))
-            {
-                return Path.GetDirectoryName(path);
-            }
-
-            return null;
         }
     }
 }
