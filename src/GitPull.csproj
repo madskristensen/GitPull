@@ -109,7 +109,16 @@
       <LastGenOutput>VSCommandTable.cs</LastGenOutput>
     </VSCTCompile>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\GitPull.Services.15.0\GitPull.Services.15.0.csproj">
+      <Project>{6cc39d34-677a-4474-af19-e63cb343d2ee}</Project>
+      <Name>GitPull.Services.15.0</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GitPull.Services\GitPull.Services.csproj">
+      <Project>{bafff30c-fe61-4b1f-b5b6-d28520ac777d}</Project>
+      <Name>GitPull.Services</Name>
+    </ProjectReference>
+  </ItemGroup>
   <ItemGroup>
     <Content Include="hub.exe">
       <IncludeInVSIX>true</IncludeInVSIX>

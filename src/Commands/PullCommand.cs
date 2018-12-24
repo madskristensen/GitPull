@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using EnvDTE;
+using GitPull.Services;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -55,7 +56,8 @@ namespace GitPull
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
 
-                ExecuteAsync(dte, solutionDir, pane).FileAndForget("madskristensen/gitpull");
+                var gitPullService = new TeamExplorerService(package);
+                ExecuteAsync(dte, solutionDir, pane, gitPullService).FileAndForget("madskristensen/gitpull");
             }
             catch (Exception ex)
             {
@@ -63,7 +65,8 @@ namespace GitPull
             }
         }
 
-        static async Task ExecuteAsync(DTE dte, string solutionDir, Lazy<IVsOutputWindowPane> pane)
+        static async Task ExecuteAsync(DTE dte, string solutionDir, Lazy<IVsOutputWindowPane> pane,
+            ITeamExplorerService teamExplorerService)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -80,6 +83,10 @@ namespace GitPull
             if (!outputText)
             {
                 dte.StatusBar.Text = "No branches require syncing";
+            }
+            else
+            {
+                await teamExplorerService.PullAsync();
             }
         }
 
