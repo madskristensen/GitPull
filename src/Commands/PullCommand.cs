@@ -2,13 +2,11 @@
 using System.ComponentModel.Design;
 using System.Diagnostics;
 using System.IO;
-using System.Reflection;
 using EnvDTE;
 using GitPull.Services;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
-using Process = System.Diagnostics.Process;
 using Task = System.Threading.Tasks.Task;
 
 namespace GitPull
@@ -56,8 +54,9 @@ namespace GitPull
                     return package.GetOutputPane(Guid.NewGuid(), "Git Pull");
                 });
 
+                var hubService = new HubService();
                 var gitPullService = new TeamExplorerService(package);
-                ExecuteAsync(dte, solutionDir, pane, gitPullService).FileAndForget("madskristensen/gitpull");
+                ExecuteAsync(dte, solutionDir, pane, hubService, gitPullService).FileAndForget("madskristensen/gitpull");
             }
             catch (Exception ex)
             {
@@ -66,7 +65,7 @@ namespace GitPull
         }
 
         static async Task ExecuteAsync(DTE dte, string solutionDir, Lazy<IVsOutputWindowPane> pane,
-            ITeamExplorerService teamExplorerService)
+            IHubService hubService, ITeamExplorerService teamExplorerService)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
@@ -78,7 +77,7 @@ namespace GitPull
                 outputText = true;
             });
 
-            await SyncRepositoryAsync(solutionDir, progress);
+            await hubService.SyncRepositoryAsync(solutionDir, progress);
 
             if (!outputText)
             {
@@ -87,42 +86,6 @@ namespace GitPull
             else
             {
                 await teamExplorerService.PullAsync();
-            }
-        }
-
-        static async Task SyncRepositoryAsync(string solutionDir, Progress<string> progress)
-        {
-            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string exeFile = Path.Combine(dir, "hub.exe");
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = exeFile,
-                Arguments = "sync",
-                WorkingDirectory = solutionDir,
-                UseShellExecute = false,
-                CreateNoWindow = true,
-                RedirectStandardError = true,
-                RedirectStandardOutput = true
-            };
-
-            var process = Process.Start(startInfo);
-
-            await Task.WhenAll(
-                ReadAllAsync(process.StandardOutput, progress),
-                ReadAllAsync(process.StandardError, progress));
-        }
-
-        static async Task ReadAllAsync(StreamReader reader, IProgress<string> progress)
-        {
-            while (true)
-            {
-                string line = await reader.ReadLineAsync();
-                if (line == null || line == "fatal: Not a git repository")
-                {
-                    break;
-                }
-
-                progress.Report(line);
             }
         }
 
