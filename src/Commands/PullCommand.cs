@@ -39,8 +39,10 @@ namespace GitPull
                 Assumes.Present(serviceProvider);
                 var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
                 Assumes.Present(dte);
-                var hubService = new HubService();
-                var teamExplorerService = new TeamExplorerService(serviceProvider);
+                var hubService = serviceProvider.GetService(typeof(IHubService)) as IHubService;
+                Assumes.Present(hubService);
+                var teamExplorerService = serviceProvider.GetService(typeof(ITeamExplorerService)) as ITeamExplorerService;
+                Assumes.Present(teamExplorerService);
 
                 var repositoryPath = teamExplorerService.FindActiveRepositoryPath();
                 if (repositoryPath == null)
