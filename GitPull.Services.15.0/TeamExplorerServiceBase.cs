@@ -9,11 +9,12 @@ using Microsoft.VisualStudio.TeamFoundation.Git.Extensibility;
 
 namespace GitPull.Services
 {
-    public class TeamExplorerService : ITeamExplorerService
+    // This needs to be compiled against TeamFoundation assemblies for the target Visual Studio version
+    public abstract class TeamExplorerServiceBase : ITeamExplorerService
     {
         readonly IServiceProvider serviceProvider;
 
-        public TeamExplorerService(IServiceProvider serviceProvider)
+        public TeamExplorerServiceBase(IServiceProvider serviceProvider)
         {
             this.serviceProvider = serviceProvider;
         }
@@ -25,13 +26,26 @@ namespace GitPull.Services
             Assumes.Present(service);
             var teamExplorer = service.GetSccService<ITeamExplorer>();
             Assumes.NotNull(teamExplorer);
-            var page = teamExplorer.NavigateToPage(new Guid(TeamExplorerPageIds.GitCommits), null);
+            var page = await NavigateToPageAsync(teamExplorer, new Guid(TeamExplorerPageIds.GitCommits));
             Assumes.NotNull(page);
             var gitCommitsPageView = page.PageContent as GitCommitsPageView;
             Assumes.NotNull(gitCommitsPageView);
             var gitCommitsPageViewModel = gitCommitsPageView.ViewModel as GitCommitsPageViewModel;
             Assumes.NotNull(gitCommitsPageViewModel);
             await gitCommitsPageViewModel.PullAsync(repositoryPath);
+        }
+
+        static async Task<ITeamExplorerPage> NavigateToPageAsync(ITeamExplorer teamExplorer, Guid pageId)
+        {
+            // Page sometimes returns null so we need to wait for CurrentPage to change
+            var page = teamExplorer.NavigateToPage(pageId, null);
+            while (page?.GetId() != pageId)
+            {
+                await Task.Delay(1000);
+                page = teamExplorer.CurrentPage;
+            }
+
+            return page;
         }
 
         public string FindActiveRepositoryPath()

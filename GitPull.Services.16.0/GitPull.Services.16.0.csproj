@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net46</TargetFramework>
+    <RootNamespace>GitPull.Services</RootNamespace>
+    <TeamExploerPath>C:\Program Files (x86)\Microsoft Visual Studio\2019\Preview\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer</TeamExploerPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\GitPull.Services.15.0\TeamExplorerServiceBase.cs" Link="TeamExplorerServiceBase.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="IgnoresAccessChecksToGenerator" Version="0.4.0" />
+    <PackageReference Include="Madskristensen.VisualStudio.SDK" Version="15.0.81-pre" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\GitPull.Services\GitPull.Services.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Microsoft.TeamFoundation.Git.Controls">
+      <HintPath>$(TeamExploerPath)\Microsoft.TeamFoundation.Git.Controls.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Git.CoreServices">
+      <HintPath>$(TeamExploerPath)\Microsoft.TeamFoundation.Git.CoreServices.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Git.Provider">
+      <HintPath>$(TeamExploerPath)\Microsoft.TeamFoundation.Git.Provider.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.TeamFoundation.Controls">
+      <HintPath>$(TeamExploerPath)\Microsoft.TeamFoundation.Controls.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+  <PropertyGroup>
+    <InternalsAssemblyNames>Microsoft.TeamFoundation.Git.Controls;Microsoft.TeamFoundation.Git.CoreServices;Microsoft.TeamFoundation.Git.Provider;Microsoft.TeamFoundation.Controls</InternalsAssemblyNames>
+  </PropertyGroup>
+
+
+</Project>

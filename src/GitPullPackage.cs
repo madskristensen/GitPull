@@ -56,10 +56,27 @@ namespace GitPull
             return Task.FromResult<object>(service);
         }
 
-        Task<object> CreateTeamExplorerServiceAsync(IAsyncServiceContainer container, CancellationToken cancellationToken, Type serviceType)
+        async Task<object> CreateTeamExplorerServiceAsync(IAsyncServiceContainer container, CancellationToken cancellationToken, Type serviceType)
         {
-            var service = new TeamExplorerService(this);
-            return Task.FromResult<object>(service);
+            await JoinableTaskFactory.SwitchToMainThreadAsync();
+
+            var dte = await GetServiceAsync(typeof(DTE)) as DTE;
+            Assumes.Present(dte);
+            Lazy<ITeamExplorerService> teamExplorerService;
+            switch (dte.Version)
+            {
+                case "15.0":
+                    teamExplorerService = new Lazy<ITeamExplorerService>(() => new TeamExplorerService15(this));
+                    break;
+                case "16.0":
+                    teamExplorerService = new Lazy<ITeamExplorerService>(() => new TeamExplorerService16(this));
+                    break;
+                default:
+                    throw new NotImplementedException($"ITeamExplorerService not implemented for Visual Studio {dte.Version}");
+            }
+
+            return teamExplorerService.Value;
         }
+
     }
 }
