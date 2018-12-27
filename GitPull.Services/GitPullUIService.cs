@@ -55,7 +55,7 @@ namespace GitPull.Services
             }
             else
             {
-                await teamExplorerService.PullAsync();
+                await teamExplorerService.PullAsync(repositoryPath);
             }
         }
     }

@@ -4,7 +4,7 @@ namespace GitPull.Services
 {
     public interface ITeamExplorerService
     {
-        Task PullAsync();
+        Task PullAsync(string repositoryPath);
 
         string FindActiveRepositoryPath();
     }

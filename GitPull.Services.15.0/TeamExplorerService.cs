@@ -18,26 +18,19 @@ namespace GitPull.Services
             this.serviceProvider = serviceProvider;
         }
 
-        public async Task PullAsync()
+        public async Task PullAsync(string repositoryPath)
         {
-            var repositoryPath = FindActiveRepositoryPath();
-            if (repositoryPath == null)
-            {
-                return;
-            }
-
+            Assumes.Present(repositoryPath);
             var service = serviceProvider.GetService(typeof(SccService)) as SccService;
             Assumes.Present(service);
             var teamExplorer = service.GetSccService<ITeamExplorer>();
+            Assumes.NotNull(teamExplorer);
             var page = teamExplorer.NavigateToPage(new Guid(TeamExplorerPageIds.GitCommits), null);
-            if (page == null)
-            {
-                Console.WriteLine("Page is currently null");
-                return;
-            }
-
+            Assumes.NotNull(page);
             var gitCommitsPageView = page.PageContent as GitCommitsPageView;
+            Assumes.NotNull(gitCommitsPageView);
             var gitCommitsPageViewModel = gitCommitsPageView.ViewModel as GitCommitsPageViewModel;
+            Assumes.NotNull(gitCommitsPageViewModel);
             await gitCommitsPageViewModel.PullAsync(repositoryPath);
         }
 
