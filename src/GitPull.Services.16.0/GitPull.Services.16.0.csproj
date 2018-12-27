@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <RootNamespace>GitPull.Services</RootNamespace>
-    <TeamExploerPath>..\lib\16.0</TeamExploerPath>
+    <TeamExploerPath>..\..\lib\16.0</TeamExploerPath>
   </PropertyGroup>
 
   <ItemGroup>

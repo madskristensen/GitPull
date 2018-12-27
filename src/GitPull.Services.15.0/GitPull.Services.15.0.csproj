@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <RootNamespace>GitPull.Services</RootNamespace>
-    <TeamExploerPath>..\lib\15.0</TeamExploerPath>
+    <TeamExploerPath>..\..\lib\15.0</TeamExploerPath>
   </PropertyGroup>
 
   <ItemGroup>
@@ -28,6 +28,7 @@
     <Reference Include="Microsoft.TeamFoundation.Controls">
       <HintPath>$(TeamExploerPath)\Microsoft.TeamFoundation.Controls.dll</HintPath>
     </Reference>
+    <Reference Include="PresentationFramework" />
   </ItemGroup>
 
   <PropertyGroup>

@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28307.106
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitPull", "src\GitPull.csproj", "{F03208D5-DA79-4B47-9A04-B802562AB242}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GitPull", "src\GitPull\GitPull.csproj", "{F03208D5-DA79-4B47-9A04-B802562AB242}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{0958FFB6-1CAA-4D59-973B-55CBE43745A3}"
 	ProjectSection(SolutionItems) = preProject
@@ -11,11 +11,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services.15.0", "GitPull.Services.15.0\GitPull.Services.15.0.csproj", "{6CC39D34-677A-4474-AF19-E63CB343D2EE}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services.15.0", "src\GitPull.Services.15.0\GitPull.Services.15.0.csproj", "{6CC39D34-677A-4474-AF19-E63CB343D2EE}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services", "GitPull.Services\GitPull.Services.csproj", "{BAFFF30C-FE61-4B1F-B5B6-D28520AC777D}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services", "src\GitPull.Services\GitPull.Services.csproj", "{BAFFF30C-FE61-4B1F-B5B6-D28520AC777D}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services.16.0", "GitPull.Services.16.0\GitPull.Services.16.0.csproj", "{5A441C17-A176-4DEF-A00E-DCC1662747EC}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GitPull.Services.16.0", "src\GitPull.Services.16.0\GitPull.Services.16.0.csproj", "{5A441C17-A176-4DEF-A00E-DCC1662747EC}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
