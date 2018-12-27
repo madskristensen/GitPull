@@ -33,6 +33,12 @@ namespace GitPull.Services
                 return;
             }
 
+            if (pane.IsValueCreated)
+            {
+                // If pane already created then clear it
+                pane.Value.Clear();
+            }
+
             bool outputText = false;
             var progress = new Progress<string>(line =>
             {
