@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
+using GitPull.Services;
 using Microsoft;
 using Microsoft.VisualStudio;
 using Microsoft.VisualStudio.Shell;
@@ -64,7 +65,9 @@ namespace GitPull
 
                 await JoinableTaskFactory.SwitchToMainThreadAsync();
 
-                PullCommand.Execute(this);
+                var service = await GetServiceAsync(typeof(IGitPullUIService)) as IGitPullUIService;
+                Assumes.Present(service);
+                service.SyncAndPullAsync().FileAndForget("madskristensen/gitpull");
             }
             catch (Exception ex)
             {
