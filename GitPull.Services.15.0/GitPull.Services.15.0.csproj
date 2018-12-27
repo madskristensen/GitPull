@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net46</TargetFramework>
     <RootNamespace>GitPull.Services</RootNamespace>
-    <TeamExploerPath>C:\Program Files (x86)\Microsoft Visual Studio\2017\Enterprise\Common7\IDE\CommonExtensions\Microsoft\TeamFoundation\Team Explorer</TeamExploerPath>
+    <TeamExploerPath>..\lib\15.0</TeamExploerPath>
   </PropertyGroup>
 
   <ItemGroup>
