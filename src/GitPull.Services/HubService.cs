@@ -8,7 +8,7 @@ namespace GitPull.Services
 {
     public class HubService : IHubService
     {
-        public async Task SyncRepositoryAsync(string solutionDir, Progress<string> progress)
+        public async Task SyncRepositoryAsync(string repositoryPath, Progress<string> progress)
         {
             string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
             string exeFile = Path.Combine(dir, "hub.exe");
@@ -16,7 +16,7 @@ namespace GitPull.Services
             {
                 FileName = exeFile,
                 Arguments = "sync",
-                WorkingDirectory = solutionDir,
+                WorkingDirectory = repositoryPath,
                 UseShellExecute = false,
                 CreateNoWindow = true,
                 RedirectStandardError = true,
@@ -32,14 +32,8 @@ namespace GitPull.Services
 
         static async Task ReadAllAsync(StreamReader reader, IProgress<string> progress)
         {
-            while (true)
+            while (await reader.ReadLineAsync() is string line)
             {
-                string line = await reader.ReadLineAsync();
-                if (line == null || line == "fatal: Not a git repository")
-                {
-                    break;
-                }
-
                 progress.Report(line);
             }
         }
