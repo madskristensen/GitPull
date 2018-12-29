@@ -39,7 +39,7 @@ namespace GitPull
                 ThreadHelper.ThrowIfNotOnUIThread();
                 Window window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
                 window.Activate();
-                return GetOutputPane(Guid.NewGuid(), "Git Pull");
+                return GetOutputPane(new Guid("FBC10BF4-C9F8-4F0D-9CDE-69304226A68F"), "Source Control - Git");
             });
 
             var hubService = await GetServiceAsync(typeof(IHubService)) as IHubService;
