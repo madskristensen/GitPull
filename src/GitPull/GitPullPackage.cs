@@ -34,20 +34,12 @@ namespace GitPull
 
             var dte = await GetServiceAsync(typeof(DTE)) as DTE;
             Assumes.Present(dte);
-            var pane = new Lazy<IVsOutputWindowPane>(() =>
-            {
-                ThreadHelper.ThrowIfNotOnUIThread();
-                Window window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
-                window.Activate();
-                return GetOutputPane(new Guid("FBC10BF4-C9F8-4F0D-9CDE-69304226A68F"), "Source Control - Git");
-            });
-
             var hubService = await GetServiceAsync(typeof(IHubService)) as IHubService;
             Assumes.Present(hubService);
             var teamExplorerService = await GetServiceAsync(typeof(ITeamExplorerService)) as ITeamExplorerService;
             Assumes.Present(teamExplorerService);
 
-            return new GitPullUIService(pane, dte, hubService, teamExplorerService);
+            return new GitPullUIService(this, dte, hubService, teamExplorerService);
         }
 
         Task<object> CreateHubServiceAsync(IAsyncServiceContainer container, CancellationToken cancellationToken, Type serviceType)

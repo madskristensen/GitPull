@@ -8,15 +8,16 @@ namespace GitPull.Services
 {
     public class GitPullUIService : IGitPullUIService
     {
-        readonly Lazy<IVsOutputWindowPane> pane;
+        readonly Guid GitPaneGuid = new Guid("FBC10BF4-C9F8-4F0D-9CDE-69304226A68F");
+        readonly Package package;
         readonly ITeamExplorerService teamExplorerService;
         readonly IHubService hubService;
         readonly DTE dte;
 
-        public GitPullUIService(Lazy<IVsOutputWindowPane> pane, DTE dte,
+        public GitPullUIService(Package package, DTE dte,
             IHubService hubService, ITeamExplorerService teamExplorerService)
         {
-            this.pane = pane;
+            this.package = package;
             this.teamExplorerService = teamExplorerService;
             this.hubService = hubService;
             this.dte = dte;
@@ -33,11 +34,13 @@ namespace GitPull.Services
                 return;
             }
 
-            if (pane.IsValueCreated)
+            var pane = new Lazy<IVsOutputWindowPane>(() =>
             {
-                // If pane already created then clear it
-                pane.Value.Clear();
-            }
+                ThreadHelper.ThrowIfNotOnUIThread();
+                Window window = dte.Windows.Item(EnvDTE.Constants.vsWindowKindOutput);
+                window.Activate();
+                return package.GetOutputPane(GitPaneGuid, "Source Control - Git");
+            });
 
             bool outputText = false;
             var progress = new Progress<string>(line =>
