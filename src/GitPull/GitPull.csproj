@@ -82,24 +82,15 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="EnvDTE">
-      <Version>8.0.2</Version>
+    <PackageReference Include="Madskristensen.VisualStudio.SDK">
+      <Version>15.6.81-pre</Version>
     </PackageReference>
     <PackageReference Include="Madskristensen.VSSDK.Resourcer">
       <Version>1.0.10</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Shell.15.0">
-      <Version>15.9.28307</Version>
-    </PackageReference>
-    <PackageReference Include="Microsoft.VisualStudio.Threading">
-      <Version>15.8.192</Version>
-    </PackageReference>
     <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.9.3032">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
-    </PackageReference>
-    <PackageReference Include="Newtonsoft.Json">
-      <Version>9.0.1</Version>
     </PackageReference>
   </ItemGroup>
   <ItemGroup>
