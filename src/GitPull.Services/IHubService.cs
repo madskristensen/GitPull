@@ -5,6 +5,6 @@ namespace GitPull.Services
 {
     public interface IHubService
     {
-        Task SyncRepositoryAsync(string solutionDir, Progress<string> progress);
+        Task SyncRepositoryAsync(string solutionDir, Progress<string> outputProgress, Progress<string> statusProgress);
     }
 }

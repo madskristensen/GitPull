@@ -43,14 +43,20 @@ namespace GitPull.Services
             });
 
             bool outputText = false;
-            var progress = new Progress<string>(line =>
+            var outputProgress = new Progress<string>(line =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
                 pane.Value.OutputString(line + Environment.NewLine);
                 outputText = true;
             });
 
-            await hubService.SyncRepositoryAsync(repositoryPath, progress);
+            var statusProgress = new Progress<string>(line =>
+            {
+                ThreadHelper.ThrowIfNotOnUIThread();
+                dte.StatusBar.Text = line;
+            });
+
+            await hubService.SyncRepositoryAsync(repositoryPath, outputProgress, statusProgress);
 
             if (!outputText)
             {
