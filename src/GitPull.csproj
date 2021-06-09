@@ -85,6 +85,9 @@
     <PackageReference Include="EnvDTE">
       <Version>8.0.2</Version>
     </PackageReference>
+    <PackageReference Include="EnvDTE80">
+      <Version>16.10.31320.204</Version>
+    </PackageReference>
     <PackageReference Include="Madskristensen.VSSDK.Resourcer">
       <Version>1.0.10</Version>
     </PackageReference>
@@ -94,7 +97,7 @@
     <PackageReference Include="Microsoft.VisualStudio.Threading">
       <Version>15.8.192</Version>
     </PackageReference>
-    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="15.9.3032">
+    <PackageReference Include="Microsoft.VSSDK.BuildTools" Version="17.0.1619-preview1">
       <IncludeAssets>runtime; build; native; contentfiles; analyzers</IncludeAssets>
       <PrivateAssets>all</PrivateAssets>
     </PackageReference>

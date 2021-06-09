@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PackageManifest Version="2.0.0" xmlns="http://schemas.microsoft.com/developer/vsx-schema/2011" xmlns:d="http://schemas.microsoft.com/developer/vsx-schema-design/2011">
-    <Metadata>
-        <Identity Id="c71355fb-bd6f-4235-a3b0-0ebaa2bad36f" Version="1.0.100" Language="en-US" Publisher="Mads Kristensen" />
-        <DisplayName>Git Pull</DisplayName>
-        <Description xml:space="preserve">Trigger a 'git pull' with a keyboard shortcut or automatically on solution load without having to go through multiple steps in the Team Explorer window.</Description>
-        <MoreInfo>https://github.com/madskristensen/GitPull</MoreInfo>
-        <Icon>Resources\Icon.png</Icon>
-        <PreviewImage>Resources\Icon.png</PreviewImage>
-        <Tags>git</Tags>
-    </Metadata>
-    <Installation>
-        <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
-    </Installation>
-    <Prerequisites>
-        <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
-    </Prerequisites>
-    <Assets>
-        <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
-    </Assets>
+  <Metadata>
+    <Identity Id="c71355fb-bd6f-4235-a3b0-0ebaa2bad36f" Version="1.0.100" Language="en-US" Publisher="Mads Kristensen" />
+    <DisplayName>Git Pull</DisplayName>
+    <Description xml:space="preserve">Trigger a 'git pull' with a keyboard shortcut or automatically on solution load without having to go through multiple steps in the Team Explorer window.</Description>
+    <MoreInfo>https://github.com/madskristensen/GitPull</MoreInfo>
+    <Icon>Resources\Icon.png</Icon>
+    <PreviewImage>Resources\Icon.png</PreviewImage>
+    <Tags>git</Tags>
+  </Metadata>
+  <Installation>
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[16.0, 17.0)" />
+    <InstallationTarget Id="Microsoft.VisualStudio.Community" Version="[17.0, 18.0)">
+      <ProductArchitecture>amd64</ProductArchitecture>
+    </InstallationTarget>
+  </Installation>
+  <Prerequisites>
+    <Prerequisite Id="Microsoft.VisualStudio.Component.CoreEditor" Version="[15.0,)" DisplayName="Visual Studio core editor" />
+  </Prerequisites>
+  <Assets>
+    <Asset Type="Microsoft.VisualStudio.VsPackage" d:Source="Project" d:ProjectName="%CurrentProject%" Path="|%CurrentProject%;PkgdefProjectOutputGroup|" />
+  </Assets>
 </PackageManifest>

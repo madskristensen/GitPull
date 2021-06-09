@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Reflection;
 using EnvDTE;
+using EnvDTE80;
 using Microsoft;
 using Microsoft.VisualStudio.Shell;
 using Microsoft.VisualStudio.Shell.Interop;
@@ -38,10 +39,10 @@ namespace GitPull
             {
                 var serviceProvider = package as IServiceProvider;
                 Assumes.Present(serviceProvider);
-                var dte = serviceProvider.GetService(typeof(DTE)) as DTE;
+                var dte = serviceProvider.GetService(typeof(DTE)) as DTE2;
                 Assumes.Present(dte);
 
-                string solutionDir = FindSolutionDirectory(dte);
+                var solutionDir = FindSolutionDirectory(dte);
                 if (solutionDir == null)
                 {
                     return;
@@ -63,11 +64,11 @@ namespace GitPull
             }
         }
 
-        static async Task ExecuteAsync(DTE dte, string solutionDir, Lazy<IVsOutputWindowPane> pane)
+        private static async Task ExecuteAsync(DTE2 dte, string solutionDir, Lazy<IVsOutputWindowPane> pane)
         {
             await ThreadHelper.JoinableTaskFactory.SwitchToMainThreadAsync();
 
-            bool outputText = false;
+            var outputText = false;
             var progress = new Progress<string>(line =>
             {
                 ThreadHelper.ThrowIfNotOnUIThread();
@@ -83,10 +84,10 @@ namespace GitPull
             }
         }
 
-        static async Task SyncRepositoryAsync(string solutionDir, Progress<string> progress)
+        private static async Task SyncRepositoryAsync(string solutionDir, Progress<string> progress)
         {
-            string dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            string exeFile = Path.Combine(dir, "hub.exe");
+            var dir = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
+            var exeFile = Path.Combine(dir, "hub.exe");
             var startInfo = new ProcessStartInfo
             {
                 FileName = exeFile,
@@ -105,11 +106,11 @@ namespace GitPull
                 ReadAllAsync(process.StandardError, progress));
         }
 
-        static async Task ReadAllAsync(StreamReader reader, IProgress<string> progress)
+        private static async Task ReadAllAsync(StreamReader reader, IProgress<string> progress)
         {
             while (true)
             {
-                string line = await reader.ReadLineAsync();
+                var line = await reader.ReadLineAsync();
                 if (line == null || line == "fatal: Not a git repository")
                 {
                     break;
@@ -119,11 +120,11 @@ namespace GitPull
             }
         }
 
-        static string FindSolutionDirectory(DTE dte)
+        private static string FindSolutionDirectory(DTE2 dte)
         {
             ThreadHelper.ThrowIfNotOnUIThread();
 
-            string path = dte.Solution.FileName;
+            var path = dte.Solution.FileName;
             if (Directory.Exists(path))
             {
                 return path;
